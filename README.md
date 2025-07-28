@@ -22,7 +22,7 @@ Drag & Drop: Upload images easily or drag them in like a pro.
 
 # 🛠️ How to Run
 
-Download extract and open in VSCode or whatever choice of your then open with live server extension now upload the image to the website and all the work to AI model.
+Download extract and open in VSCode or whatever choice of your then open Index.html with live server extension now upload the image to the website and all the work to AI model.
 
 # 📊 Trained
 

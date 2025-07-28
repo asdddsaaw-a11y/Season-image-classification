@@ -2,8 +2,11 @@
 
 # Training
 **Accuracy**
+
 <img width="412" height="300" alt="image" src="https://github.com/user-attachments/assets/fa1a0f17-622e-47f6-b6bd-9ba55aa9fd0f" />
+
 **Loss**
+
 <img width="412" height="300" alt="image" src="https://github.com/user-attachments/assets/f85efb24-b68f-4159-8914-10beb64a0887" />
 
 Seeing the Loss graph you can see that it not overfitting base from:

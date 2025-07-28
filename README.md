@@ -1,39 +1,54 @@
-# Image101
+# Season Snapper AI - Teachable Machine Magic! 🌟
 
-# Training
-**Accuracy**
+Welcome to Season Snapper AI, a fun image classification web app that detects seasons (Spring, Summer, Fall, Winter) using Teachable Machine! Built by a super creative student (that’s you!), this project turns photos into seasonal adventures with a sprinkle of luck and a dash of skill. Let’s dive into this wild journey!
 
-<img width="412" height="300" alt="image" src="https://github.com/user-attachments/assets/fa1a0f17-622e-47f6-b6bd-9ba55aa9fd0f" />
+# 🎉 Project Overview
 
-**Loss**
+What it does: Upload an image, and the AI snaps it into a season—then the website transforms with seasonal themes, fun facts, and more!
 
-<img width="412" height="300" alt="image" src="https://github.com/user-attachments/assets/f85efb24-b68f-4159-8914-10beb64a0887" />
+Dataset: 120 images (26 Summer, 33 Fall, 30 Winter, 31 Spring) with a bit of augmentation magic.
 
-Seeing the Loss graph you can see that it not overfitting base from:
+# 🚀 Features
 
-Loss is decreasing as same as Test Loss decrease while at the end of the graph the Test Loss is about ~0.13 which in my opinion overfitting is about ~0.2 to ~0.3
+Season Classification: Accurately spots seasons with a Test Loss ~0.13 (85-90% accuracy) and mythical 100% accuracies (maybe I used all my life’s luck, haha!).
+
+Dynamic Themes: Changes the website vibe—Spring green, Summer sun, Fall orange, Winter snow—based on the AI’s guess.
+
+Fun Fact Pop-Up: Drops quirky season facts (e.g., “Snowflakes have six sides!”) with a close button.
+
+Settings Cog: Toggle auto-themes and fun facts with a cool gear icon.
+
+Drag & Drop: Upload images easily or drag them in like a pro.
+
+# 🛠️ How to Run
+
+Download extract and open in VSCode or whatever choice of your then open with live server extension now upload the image to the website and all the work to AI model.
+
+# 📊 Trained
+
+Epochs: 15
+
+Batch size: 16
+
+Learning Rate: 0.001
+
+Training Loss: ~0.01.
+
+Test Loss: ~0.13.
+
+<img width="412" height="300" alt="Loss" src="https://github.com/user-attachments/assets/9354d6f1-4d86-4fd6-854b-f0f65abb2e8f" />
 
 
+# 🎨 Styling Highlights
 
+Themes: Smooth gradients for each season (check Style.css for the magic!).
 
+UI: Clean drop zones, progress bars, and a spinning loader—pure eye candy.
 
+# 🤔 Challenges & Fixes
 
+Overfitting and Underfitting: Figuring if the model I over or under fitting by looking to the Loss per Epochs graph which quite confusing since it also use a luck with it.
 
+Small Dataset: Only 120 images, especially 26 Summer pics, risked overfitting and underfitting. Fixed with decrease or increase epochs until finding the perfect one.
 
-
-# Test
-
-**OVER**
-
-<img width="412" height="300" alt="Loss Over" src="https://github.com/user-attachments/assets/881795e4-e7ca-4f8b-a1ef-851d22a2e87d" />
-<img width="412" height="300" alt="Accuracy Over" src="https://github.com/user-attachments/assets/e4f3ae7e-861c-45fd-a5a0-87f1284681c0" />
-
-**FITTING**
-
-<img width="412" height="300" alt="Loss" src="https://github.com/user-attachments/assets/d9b054f4-99d4-451d-ab94-1bdb98003bc1" />
-<img width="412" height="300" alt="Accuracy" src="https://github.com/user-attachments/assets/c87be99b-f05e-4cc8-af94-8809cc4ae814" />
-
-**UNDER**
-
-<img width="412" height="300" alt="Loss Under" src="https://github.com/user-attachments/assets/b180f088-7309-4399-9b0c-455e5ae45eb3" />
-<img width="412" height="300" alt="Accuracy Under" src="https://github.com/user-attachments/assets/9ff5e58a-dd9e-44f7-b50e-4ce7e4caf83c" />
+Luck Factor: Train the Model repeatly with same setting have a chance of not getting same one that where the luck come to

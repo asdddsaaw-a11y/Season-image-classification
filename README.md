@@ -1,4 +1,4 @@
-# 🦆 Goose, Duck Classification 101 🦢
+# 🦆 Goose, Duck Classification 101 🪿
 Welcome to Goose, Goose, or is it? — your fun and quirky image classifier that tells you whether you’ve got a goose, a duck, or something else entirely! Powered by TensorFlow.js and Teachable Machine, this app makes bird ID feel like a breeze (and a giggle).
 
 # Features ✨

@@ -43,7 +43,7 @@ But overall after train the model with my luck rng is always my side since the r
 
 Visual Sneak Peek 👀
 
-<img src="https://1000logos.net/wp-content/uploads/2023/12/Raised-Eyebrow-Emoji.png" alt="Raised Eyebrow Emoji" style="width:200px; height:auto; vertical-align:middle;" />
+<img width="1919" height="903" alt="image" src="https://github.com/user-attachments/assets/905b76df-5cc2-4200-923c-f7a5b149cb50" />
 
 # Goose, Goose, or is it? 🤨
 

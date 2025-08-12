@@ -25,10 +25,6 @@ Stylish CSS with gradients, shadows, and rounded corners for that cozy feel
 
 Fun use of Comic Sans MS font because why not? 😜
 
-Acceptable Predict accurate
-
-<img width="397" height="302" alt="image" src="https://github.com/user-attachments/assets/723a0de9-e014-4db6-bfda-e51b8047d1cd" />
-
 **Train**
 
 61 goose images and 50 duck images
@@ -40,6 +36,10 @@ Batch: 16
 Learning rate: 0.0002
 
 Accurate/loss per epochs graph? Nah I don't want to show since it look too bad
+
+But overall after train the model with my luck rng is always my side since the result for Predict accurate is pretty sure it acceptable (this took me like ~40 times clicking train model repeatly)
+
+<img width="397" height="302" alt="image" src="https://github.com/user-attachments/assets/723a0de9-e014-4db6-bfda-e51b8047d1cd" />
 
 Visual Sneak Peek 👀
 

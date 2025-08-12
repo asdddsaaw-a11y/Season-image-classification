@@ -1,7 +1,7 @@
-🦆 Goose, Duck Classification 101 🦢
+# 🦆 Goose, Duck Classification 101 🦢
 Welcome to Goose, Goose, or is it? — your fun and quirky image classifier that tells you whether you’ve got a goose, a duck, or something else entirely! Powered by TensorFlow.js and Teachable Machine, this app makes bird ID feel like a breeze (and a giggle).
 
-Features ✨
+# Features ✨
 Drag & Drop your image or click to select one
 
 Slick toggle switch to show raw prediction probabilities or just the top guess
@@ -12,7 +12,7 @@ Responsive design — works smoothly on mobile and desktop!
 
 Instant predictions with a snappy result message
 
-How to Use 🦆
+# How to Use 🦆
 Open the app in your browser.
 
 Drag & drop an image of a goose or duck (or anything else you want to test) into the Drop Zone, or just click it to select a file.
@@ -38,7 +38,7 @@ Fun use of Comic Sans MS font because why not? 😜
 
 Visual Sneak Peek 👀
 
-<img src="https://1000logos.net/wp-content/uploads/2023/12/Raised-Eyebrow-Emoji.png" alt="Raised Eyebrow Emoji" style="width:80px; height:auto; vertical-align:middle;" />
+<img src="https://1000logos.net/wp-content/uploads/2023/12/Raised-Eyebrow-Emoji.png" alt="Raised Eyebrow Emoji" style="width:200px; height:auto; vertical-align:middle;" />
 
 Goose, Goose, or is it? 🤨
 

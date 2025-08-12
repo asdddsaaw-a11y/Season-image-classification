@@ -8,9 +8,9 @@ Slick toggle switch to show raw prediction probabilities or just the top guess
 
 Clean, colorful, and playful UI with a raised eyebrow emoji for that extra sass 😏
 
-Responsive design — works smoothly on mobile and desktop!
+Responsive design don't ask me why even I add this since mobile cant use anyways
 
-Instant predictions with a snappy result message
+Instant predictions (but first time uploaded will be slow) with a snappy result message
 
 # Under the Hood 🔧
 Built with TensorFlow.js & Teachable Machine Image library

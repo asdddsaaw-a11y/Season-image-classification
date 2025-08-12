@@ -12,18 +12,7 @@ Responsive design — works smoothly on mobile and desktop!
 
 Instant predictions with a snappy result message
 
-# How to Use 🦆
-Open the app in your browser.
-
-Drag & drop an image of a goose or duck (or anything else you want to test) into the Drop Zone, or just click it to select a file.
-
-Watch your image appear with a shadowy glow — fancy!
-
-The app will tell you the most likely bird in your photo. Want all the prediction details? Flip the Show raw results switch.
-
-Not happy with your choice? Click Clear Image and try again!
-
-Under the Hood 🔧
+# Under the Hood 🔧
 Built with TensorFlow.js & Teachable Machine Image library
 
 Model files live in the ./Model/ folder (model.json and metadata.json)
@@ -40,9 +29,9 @@ Visual Sneak Peek 👀
 
 <img src="https://1000logos.net/wp-content/uploads/2023/12/Raised-Eyebrow-Emoji.png" alt="Raised Eyebrow Emoji" style="width:200px; height:auto; vertical-align:middle;" />
 
-Goose, Goose, or is it? 🤨
+# Goose, Goose, or is it? 🤨
 
-Code Highlights 💡
+**Code Highlights 💡**
 Drag & drop + file input combo for effortless image upload
 
 Prediction function that picks the top class or lists all classes with probabilities
@@ -60,5 +49,5 @@ TensorFlow.js & Teachable Machine Image
 
 Hosted model files for quick loading
 
-Wanna Play? 🕹️
+# Wanna Play? 🕹️
 Clone this repo, open index.html in your perfer code editor that contain live preview don't ask me why but it not work if you dont do so but after that just upload the image then the model will be predict it not 100% accurate but still kinda accurate after all.

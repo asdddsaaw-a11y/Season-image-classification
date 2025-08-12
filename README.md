@@ -55,4 +55,4 @@ Clear button resets everything and even resets the toggle switch — neat!
 User-friendly alerts if you drop a non-image file
 
 # How to use? 🕹️
-Clone this repo, open index.html in your perfer code editor that contain live preview don't ask me why but it not work if you don't do so anyways after that just upload the image then the model will be predict it not 100% accurate but still better than nothing after all.
+Clone this repo, open index.html in your perfer code editor that contain live preview don't ask me why but it not work if you don't do so anyways after that just upload the image then the model will be predict it not 100% accurate especially when it a duckling or gosling but still better than nothing after all.

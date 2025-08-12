@@ -15,8 +15,6 @@ Instant predictions (but first time uploaded will be slow) with a snappy result 
 # Under the Hood 🔧
 Built with TensorFlow.js & Teachable Machine Image library
 
-Model files live in the ./Model/ folder (model.json and metadata.json)
-
 Smooth drag & drop interface with interactive hover effects
 
 Stylish toggle switch for raw vs. pretty prediction outputs
@@ -56,5 +54,5 @@ Clear button resets everything and even resets the toggle switch — neat!
 
 User-friendly alerts if you drop a non-image file
 
-# Wanna Play? 🕹️
-Clone this repo, open index.html in your perfer code editor that contain live preview don't ask me why but it not work if you dont do so but after that just upload the image then the model will be predict it not 100% accurate but still kinda accurate after all.
+# How to use? 🕹️
+Clone this repo, open index.html in your perfer code editor that contain live preview don't ask me why but it not work if you don't do so anyways after that just upload the image then the model will be predict it not 100% accurate but still better than nothing after all.

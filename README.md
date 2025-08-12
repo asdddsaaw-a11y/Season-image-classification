@@ -39,7 +39,7 @@ Batch: 16
 
 Learning rate: 0.0002
 
-Accurate/loss per epochs don't want to show since it look too bad
+Accurate/loss per epochs graph? Nah I don't want to show since it look too bad
 
 Visual Sneak Peek 👀
 

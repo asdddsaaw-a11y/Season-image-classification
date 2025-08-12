@@ -25,6 +25,22 @@ Stylish CSS with gradients, shadows, and rounded corners for that cozy feel
 
 Fun use of Comic Sans MS font because why not? 😜
 
+Acceptable Predict accurate
+
+<img width="397" height="302" alt="image" src="https://github.com/user-attachments/assets/723a0de9-e014-4db6-bfda-e51b8047d1cd" />
+
+**Train**
+
+61 goose images and 50 duck images
+
+Epochs: 21
+
+Batch: 16
+
+Learning rate: 0.0002
+
+Accurate/loss per epochs don't want to show since it look too bad
+
 Visual Sneak Peek 👀
 
 <img src="https://1000logos.net/wp-content/uploads/2023/12/Raised-Eyebrow-Emoji.png" alt="Raised Eyebrow Emoji" style="width:200px; height:auto; vertical-align:middle;" />
@@ -39,15 +55,6 @@ Prediction function that picks the top class or lists all classes with probabili
 Clear button resets everything and even resets the toggle switch — neat!
 
 User-friendly alerts if you drop a non-image file
-
-Tech Stack 🛠️
-HTML5 & CSS3 with Flexbox magic
-
-JavaScript ES6+
-
-TensorFlow.js & Teachable Machine Image
-
-Hosted model files for quick loading
 
 # Wanna Play? 🕹️
 Clone this repo, open index.html in your perfer code editor that contain live preview don't ask me why but it not work if you dont do so but after that just upload the image then the model will be predict it not 100% accurate but still kinda accurate after all.

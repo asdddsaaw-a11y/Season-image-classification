@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <title>Goose, Duck classification 101</title>
+   <link rel="stylesheet" href="./Style.css" />
+</head>
+<body>
+<div class="title">Goose, Goose, or is it? <img src="https://1000logos.net/wp-content/uploads/2023/12/Raised-Eyebrow-Emoji.png" alt="Raised Eyebrow Emoji" style="width:80px; height:auto; vertical-align:middle;" /></div>
+
+   <div id="settings">
+      <label for="toggle-raw">Show raw results</label>
+      <label class="switch">
+         <input type="checkbox" id="toggle-raw" />
+         <span class="slider"></span>
+      </label>
+   </div>
+
+   <div id="drop-zone">Drag & Drop your image here<br>or click to select</div>
+   <input type="file" accept="image/*" style="display:none;" id="file-input" />
+
+   <img id="input-image" width="200" />
+   <button id="clear-button" style="display:none;">Clear Image</button>
+
+   <div id="label-container"></div>
+   <div id="result-message"></div>
+
+   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+
+   <script type="text/javascript">
+      const MODEL_URL = "./Model/";
+
+      let model, maxPredictions;
+      const labelContainer = document.getElementById("label-container");
+      const resultMessage = document.getElementById("result-message");
+      const dropZone = document.getElementById('drop-zone');
+      const fileInput = document.getElementById('file-input');
+      const imageElement = document.getElementById('input-image');
+      const clearButton = document.getElementById('clear-button');
+      const toggleRaw = document.getElementById('toggle-raw');
+
+      async function loadModel() {
+         const modelURL = MODEL_URL + "model.json";
+         const metadataURL = MODEL_URL + "metadata.json";
+
+         model = await tmImage.load(modelURL, metadataURL);
+         maxPredictions = model.getTotalClasses();
+
+         labelContainer.innerHTML = '';
+         for (let i = 0; i < maxPredictions; i++) {
+            labelContainer.appendChild(document.createElement("div"));
+         }
+      }
+
+      loadModel();
+
+      // Click drop zone to open file picker
+      dropZone.addEventListener('click', () => fileInput.click());
+
+      // Drag & drop handlers
+      dropZone.addEventListener('dragover', (e) => {
+         e.preventDefault();
+         dropZone.classList.add('hover');
+      });
+
+      dropZone.addEventListener('dragleave', (e) => {
+         e.preventDefault();
+         dropZone.classList.remove('hover');
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+         e.preventDefault();
+         dropZone.classList.remove('hover');
+         if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            handleFile(e.dataTransfer.files[0]);
+            e.dataTransfer.clearData();
+         }
+      });
+
+      fileInput.addEventListener('change', (e) => {
+         if (e.target.files && e.target.files.length > 0) {
+            handleFile(e.target.files[0]);
+         }
+      });
+
+      clearButton.addEventListener('click', () => {
+         clearImage();
+      });
+
+      async function handleFile(file) {
+         if (!file.type.startsWith('image/')) {
+            alert('Please drop an image file!');
+            return;
+         }
+         imageElement.src = URL.createObjectURL(file);
+         imageElement.style.display = 'block';
+         clearButton.style.display = 'inline-block'; // Show clear button on load
+         resultMessage.innerHTML = ''; // Clear previous result before prediction
+         imageElement.onload = async () => {
+            await predict(imageElement);
+         };
+      }
+
+      async function predict(image) {
+         const prediction = await model.predict(image);
+
+         if (toggleRaw.checked) {
+            // Show all predictions raw style
+            let rawText = prediction
+               .map(p => `${capitalize(p.className)}: ${p.probability.toFixed(2)}`)
+               .join('\n');
+            resultMessage.textContent = rawText;
+         } else {
+            // Show prettified top prediction
+            let highest = prediction[0];
+            for (let i = 1; i < prediction.length; i++) {
+               if (prediction[i].probability > highest.probability) {
+                  highest = prediction[i];
+               }
+            }
+            resultMessage.innerHTML = `The image you uploaded is more likely to be a <strong>${capitalize(highest.className)}!</strong>`;
+         }
+      }
+
+      function clearImage() {
+         imageElement.style.display = 'none';
+         imageElement.src = '';
+         labelContainer.innerHTML = '';
+         resultMessage.innerHTML = '';
+         clearButton.style.display = 'none';
+         toggleRaw.checked = false; // reset toggle on clear for fun
+      }
+
+      function capitalize(str) {
+         return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+   </script>
+</body>
+</html>

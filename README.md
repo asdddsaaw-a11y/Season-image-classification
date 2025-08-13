@@ -1,58 +1,36 @@
-# 🦆 Goose, Duck Classification 101 🪿
-Welcome to Goose, Goose, or is it? — your fun and quirky image classifier that tells you whether you’ve got a goose, a duck, or something else entirely! Powered by TensorFlow.js and Teachable Machine, this app makes bird ID feel like a breeze (and a giggle).
+# Season Snapper AI - Teachable Machine Magic! 🌟
+Welcome to Season Snapper AI, a fun image classification web app that detects seasons (Spring, Summer, Fall, Winter) using Teachable Machine! Built by a super creative student (that’s you!), this project turns photos into seasonal adventures with a sprinkle of luck and a dash of skill. Let’s dive into this wild journey!
 
-# Features ✨
-Drag & Drop your image or click to select one
+**🎉 Project Overview**
+What it does: Upload an image, and the AI snaps it into a season—then the website transforms with seasonal themes, fun facts, and more!
 
-Slick toggle switch to show raw prediction probabilities or just the top guess
+Dataset: 120 images (26 Summer, 33 Fall, 30 Winter, 31 Spring) with a bit of augmentation magic.
 
-Clean, colorful, and playful UI with a raised eyebrow emoji for that extra sass 😏
+# 🚀 Features
+Season Classification: Accurately spots seasons with a Test Loss ~0.13 (85-90% accuracy) and mythical 100% accuracies (maybe I used all my life’s luck, haha!).
 
-Responsive design don't ask me why even I add this since mobile cant use anyways
+Dynamic Themes: Changes the website vibe—Spring green, Summer sun, Fall orange, Winter snow—based on the AI’s guess.
 
-Instant predictions (but first time uploaded will be slow) with a snappy result message
+Fun Fact Pop-Up: Drops quirky season facts (e.g., “Snowflakes have six sides!”) with a close button.
 
-# Under the Hood 🔧
-Built with TensorFlow.js & Teachable Machine Image library
+Settings Cog: Toggle auto-themes and fun facts with a cool gear icon.
 
-Smooth drag & drop interface with interactive hover effects
+Drag & Drop: Upload images easily or drag them in like a pro.
 
-Stylish toggle switch for raw vs. pretty prediction outputs
+# 🛠️ How to Run
+Download extract and open in VSCode or whatever choice of your then open Index.html with live server extension now upload the image to the website and all the work to AI model.
 
-Stylish CSS with gradients, shadows, and rounded corners for that cozy feel
+# 📊 Trained
 
-Fun use of Comic Sans MS font because why not? 😜
+Epochs: 15
 
-**Train**
+Batch size: 16
 
-61 goose images and 50 duck images
+Learning Rate: 0.001
 
-Epochs: 21
+# 🤔 Challenges & Fixes
+Overfitting and Underfitting: Figuring if the model I over or under fitting by looking to the Loss per Epochs graph which quite confusing since it also use a luck with it.
 
-Batch: 16
+Small Dataset: Only 120 images, especially 26 Summer pics, risked overfitting and underfitting. Fixed with decrease or increase epochs until finding the perfect one.
 
-Learning rate: 0.0002
-
-Accurate/loss per epochs graph? Nah I don't want to show since it look too bad
-
-But overall after train the model with my luck rng is always my side since the result for Predict accurate is pretty sure it acceptable (this took me like ~40 times clicking train model repeatly)
-
-<img width="397" height="302" alt="image" src="https://github.com/user-attachments/assets/723a0de9-e014-4db6-bfda-e51b8047d1cd" />
-
-Visual Sneak Peek 👀
-
-<img width="1919" height="903" alt="image" src="https://github.com/user-attachments/assets/905b76df-5cc2-4200-923c-f7a5b149cb50" />
-
-# Goose, Goose, or is it? 🤨
-
-**Code Highlights 💡**
-Drag & drop + file input combo for effortless image upload
-
-Prediction function that picks the top class or lists all classes with probabilities
-
-Clear button resets everything and even resets the toggle switch — neat!
-
-User-friendly alerts if you drop a non-image file
-
-# How to use? 🕹️
-Clone this repo, open index.html in your perfer code editor that contain live preview don't ask me why but it not work if you don't do so anyways after that just upload the image then the model will be predict it not 100% accurate especially when it a duckling or gosling but still better than nothing after all.
+Luck Factor: Train the Model repeatly with same setting have a chance of not getting same one that where the luck come to

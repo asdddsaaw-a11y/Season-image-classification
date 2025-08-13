@@ -1,1 +1,1 @@
-{"tfjsVersion":"1.7.4","tmVersion":"2.4.10","packageVersion":"0.8.4-alpha2","packageName":"@teachablemachine/image","timeStamp":"2025-08-12T14:10:27.235Z","userMetadata":{},"modelName":"Goose, Goose, or a Duck?","labels":["Goose","Duck","Duckling","Gosling"],"imageSize":224}
+{"tfjsVersion":"1.7.4","tmVersion":"2.4.10","packageVersion":"0.8.4-alpha2","packageName":"@teachablemachine/image","timeStamp":"2025-07-28T11:38:53.568Z","userMetadata":{},"modelName":"tm-my-image-model","labels":["Summer","Fall","Winter","Spring"],"imageSize":224}

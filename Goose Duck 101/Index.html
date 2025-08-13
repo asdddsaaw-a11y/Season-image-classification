@@ -1,141 +1,268 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-   <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1" />
-   <title>Goose, Duck classification 101</title>
-   <link rel="stylesheet" href="./Style.css" />
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>classification</title>
+   <link rel="stylesheet" href="Style.css">
 </head>
+
 <body>
-<div class="title">Goose, Goose, or is it? <img src="https://1000logos.net/wp-content/uploads/2023/12/Raised-Eyebrow-Emoji.png" alt="Raised Eyebrow Emoji" style="width:80px; height:auto; vertical-align:middle;" /></div>
 
-   <div id="settings">
-      <label for="toggle-raw">Show raw results</label>
-      <label class="switch">
-         <input type="checkbox" id="toggle-raw" />
-         <span class="slider"></span>
-      </label>
+    <!-- Seasonal Fun Fact Pop-Up -->
+<div id="fun-fact-popup" style="display:none;">
+    <span id="fun-fact-text"></span>
+    <button id="close-fun-fact">Close</button>
+</div>
+
+       <div id="settings-cog" style="position:fixed;top:18px;right:18px;z-index:1000;cursor:pointer;font-size:2rem;">
+      <span>&#9881;</span>
    </div>
+   <!-- Settings Panel -->
+   <div id="settings-panel" style="display:none;position:fixed;top:60px;right:18px;background:#fff;color:#222;padding:18px 24px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.12);z-index:1001;">
+    <label style="display:flex;align-items:center;gap:10px;">
+        <input type="checkbox" id="auto-theme-toggle">
+        Auto Theme by Season
+    </label>
+    <label style="display:flex;align-items:center;gap:10px;margin-top:10px;">
+        <input type="checkbox" id="fun-fact-toggle" checked>
+        Show Fun Fact Pop-Up
+    </label>
+</div>
 
-   <div id="drop-zone">Drag & Drop your image here<br>or click to select</div>
-   <input type="file" accept="image/*" style="display:none;" id="file-input" />
+   <div class="main-title">Teachable Machine Image Model</div>
 
-   <img id="input-image" width="200" />
-   <button id="clear-button" style="display:none;">Clear Image</button>
+   <div class="centered">
+   <label class="custom-file-upload">
+      <input type="file" accept="image/*" onchange="loadImage(event)">
+      Choose Image
+   </label>
+</div>
 
-   <div id="label-container"></div>
-   <div id="result-message"></div>
+<div id="drop-zone" class="drop-zone">
+   <span>or drag & drop an image here</span>
+</div>
 
-   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+   <div id="loading-spinner" class="spinner" style="display:none;"></div>
 
-   <script type="text/javascript">
-      const MODEL_URL = "./Model/";
+    <div class="result-box" style="display:none;">
+        <img id="input-image" width="200" style="display:none;" />
+        <div id="label-container"></div>
+    </div>
 
-      let model, maxPredictions;
-      const labelContainer = document.getElementById("label-container");
-      const resultMessage = document.getElementById("result-message");
-      const dropZone = document.getElementById('drop-zone');
-      const fileInput = document.getElementById('file-input');
-      const imageElement = document.getElementById('input-image');
-      const clearButton = document.getElementById('clear-button');
-      const toggleRaw = document.getElementById('toggle-raw');
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
-      async function loadModel() {
-         const modelURL = MODEL_URL + "model.json";
-         const metadataURL = MODEL_URL + "metadata.json";
+<script type="text/javascript">
 
-         model = await tmImage.load(modelURL, metadataURL);
-         maxPredictions = model.getTotalClasses();
+    // Settings COG logic
+const settingsCog = document.getElementById('settings-cog');
+const settingsPanel = document.getElementById('settings-panel');
+const autoThemeToggle = document.getElementById('auto-theme-toggle');
 
-         labelContainer.innerHTML = '';
-         for (let i = 0; i < maxPredictions; i++) {
-            labelContainer.appendChild(document.createElement("div"));
-         }
-      }
+const funFactToggle = document.getElementById('fun-fact-toggle');
+let showFunFactPopup = localStorage.getItem('showFunFactPopup') !== 'false'; // default ON
+funFactToggle.checked = showFunFactPopup;
 
-      loadModel();
+funFactToggle.onchange = () => {
+    showFunFactPopup = funFactToggle.checked;
+    localStorage.setItem('showFunFactPopup', showFunFactPopup);
+};
 
-      // Click drop zone to open file picker
-      dropZone.addEventListener('click', () => fileInput.click());
+// Load setting from localStorage
+let autoTheme = localStorage.getItem('autoTheme') !== 'false'; // default ON
+autoThemeToggle.checked = autoTheme;
 
-      // Drag & drop handlers
-      dropZone.addEventListener('dragover', (e) => {
-         e.preventDefault();
-         dropZone.classList.add('hover');
-      });
+// Show/hide panel
+settingsCog.onclick = () => {
+    settingsPanel.style.display = settingsPanel.style.display === 'none' ? 'block' : 'none';
+};
+// Hide panel when clicking outside
+document.addEventListener('click', (e) => {
+    if (!settingsPanel.contains(e.target) && !settingsCog.contains(e.target)) {
+        settingsPanel.style.display = 'none';
+    }
+});
+// Toggle logic
+autoThemeToggle.onchange = () => {
+    autoTheme = autoThemeToggle.checked;
+    localStorage.setItem('autoTheme', autoTheme);
+};
 
-      dropZone.addEventListener('dragleave', (e) => {
-         e.preventDefault();
-         dropZone.classList.remove('hover');
-      });
+// Show/hide sunrise spinner
+function setLoading(isLoading) {
+    document.getElementById('loading-spinner').style.display = isLoading ? 'block' : 'none';
+}
 
-      dropZone.addEventListener('drop', (e) => {
-         e.preventDefault();
-         dropZone.classList.remove('hover');
-         if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-            handleFile(e.dataTransfer.files[0]);
-            e.dataTransfer.clearData();
-         }
-      });
+   const MODEL_URL = "./Model/";
 
-      fileInput.addEventListener('change', (e) => {
-         if (e.target.files && e.target.files.length > 0) {
-            handleFile(e.target.files[0]);
-         }
-      });
+   let model, maxPredictions;
+   let labelContainer;
 
-      clearButton.addEventListener('click', () => {
-         clearImage();
-      });
+   // Show/hide loading spinner
+   function setLoading(isLoading) {
+      document.getElementById('loading-spinner').style.display = isLoading ? 'block' : 'none';
+   }
 
-      async function handleFile(file) {
-         if (!file.type.startsWith('image/')) {
-            alert('Please drop an image file!');
+   const dropZone = document.getElementById('drop-zone');
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+});
+dropZone.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+});
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        // Create a fake event to reuse loadImage
+        const fakeEvent = { target: { files: e.dataTransfer.files } };
+        loadImage(fakeEvent);
+    }
+});
+
+   // Load the model
+   async function loadModel() {
+       setLoading(true);
+       const modelURL = MODEL_URL + "model.json";
+       const metadataURL = MODEL_URL + "metadata.json";
+       model = await tmImage.load(modelURL, metadataURL);
+       maxPredictions = model.getTotalClasses();
+       labelContainer = document.getElementById("label-container");
+       labelContainer.innerHTML = '';
+       for (let i = 0; i < maxPredictions; i++) {
+           labelContainer.appendChild(document.createElement("div"));
+       }
+       setLoading(false);
+   }
+
+   loadModel();
+
+   // When the user selects an image
+    async function loadImage(event) {
+        const imageElement = document.getElementById('input-image');
+        const resultBox = document.querySelector('.result-box');
+        imageElement.style.display = 'none';
+        setLoading(true);
+
+        // Clean up previous handlers
+        imageElement.onload = null;
+        imageElement.onerror = null;
+
+        // Handle empty file selection
+        if (!event.target.files || !event.target.files[0]) {
+            setLoading(false);
             return;
-         }
-         imageElement.src = URL.createObjectURL(file);
-         imageElement.style.display = 'block';
-         clearButton.style.display = 'inline-block'; // Show clear button on load
-         resultMessage.innerHTML = ''; // Clear previous result before prediction
-         imageElement.onload = async () => {
+        }
+
+        imageElement.src = URL.createObjectURL(event.target.files[0]);
+
+        // Success handler
+        imageElement.onload = async () => {
+            resultBox.style.display = 'block';
+            imageElement.style.display = 'block';
             await predict(imageElement);
-         };
-      }
+            setLoading(false);
+        };
 
-      async function predict(image) {
-         const prediction = await model.predict(image);
+        // Error handler
+        imageElement.onerror = () => {
+            setLoading(false);
+            alert("Failed to load image. Please try another file.");
+        };
 
-         if (toggleRaw.checked) {
-            // Show all predictions raw style
-            let rawText = prediction
-               .map(p => `${capitalize(p.className)}: ${p.probability.toFixed(2)}`)
-               .join('\n');
-            resultMessage.textContent = rawText;
-         } else {
-            // Show prettified top prediction
-            let highest = prediction[0];
-            for (let i = 1; i < prediction.length; i++) {
-               if (prediction[i].probability > highest.probability) {
-                  highest = prediction[i];
-               }
+        // Fallback: stop loading if image doesn't load in 10 seconds
+        setTimeout(() => {
+            if (document.getElementById('loading-spinner').style.display === 'block') {
+                setLoading(false);
+                alert("Image loading timed out. Please try again.");
             }
-            resultMessage.innerHTML = `The image you uploaded is more likely to be a <strong>${capitalize(highest.className)}!</strong>`;
-         }
-      }
+        }, 10000);
+    }
 
-      function clearImage() {
-         imageElement.style.display = 'none';
-         imageElement.src = '';
-         labelContainer.innerHTML = '';
-         resultMessage.innerHTML = '';
-         clearButton.style.display = 'none';
-         toggleRaw.checked = false; // reset toggle on clear for fun
-      }
+   async function predict(imageElement) {
+       const prediction = await model.predict(imageElement);
+       let topClass = prediction[0].className; // Default to first
+       let topProb = prediction[0].probability;
+       for (let i = 0; i < maxPredictions; i++) {
+           const className = prediction[i].className;
+           const percent = Math.round(prediction[i].probability * 100);
+           labelContainer.childNodes[i].innerHTML = `
+               <div class="prog-bar-container">
+                   <div class="prog-bar-fill" style="width:0"></div>
+                   <span class="prog-bar-label">${className}: ${percent}%</span>
+               </div>
+           `;
+           setTimeout(() => {
+               const fill = labelContainer.childNodes[i].querySelector('.prog-bar-fill');
+               fill.style.width = percent + '%';
+           }, 50);
+           // Find the top prediction
+           if (prediction[i].probability > topProb) {
+               topProb = prediction[i].probability;
+               topClass = className;
+           }
+       }
+       setSeasonTheme(topClass); // Set theme based on top prediction
+   }
 
-      function capitalize(str) {
-         return str.charAt(0).toUpperCase() + str.slice(1);
-      }
-   </script>
+// Fun facts for each season
+const seasonFunFacts = {
+    summer: [
+        "Did you know the longest day of the year occurs during summer solstice.",
+        "Did you know sunflowers bloom in summer and always face the sun.",
+        "Did you know ice cream sales are highest in summer months!"
+    ],
+    winter: [
+        "Did you know snowflakes always have six sides.",
+        "Did you know some animals hibernate all winter long.",
+        "Did you know the coldest temperature ever recorded on Earth was in Antarctica."
+    ],
+    spring: [
+        "Did you know many birds return from migration in spring.",
+        "Did you know cherry blossoms symbolize renewal and are celebrated worldwide.",
+        "Did you know spring fever is a real phenomenon caused by increased sunlight."
+    ],
+    fall: [
+        "Did you know leaves change color in fall due to less sunlight.",
+        "Did you know pumpkin spice became a fall favorite in the 2000s.",
+        "Did you know squirrels gather nuts in fall to prepare for winter."
+    ]
+};
+
+// Show a random fun fact for the given season
+function showFunFact(season) {
+    if (!showFunFactPopup) return;
+    const facts = seasonFunFacts[season.toLowerCase()];
+    if (!facts) return;
+    const fact = facts[Math.floor(Math.random() * facts.length)];
+    const popup = document.getElementById('fun-fact-popup');
+    const text = document.getElementById('fun-fact-text');
+    text.textContent = fact;
+    popup.style.display = 'flex';
+}
+
+// Close fun fact popup
+document.getElementById('close-fun-fact').onclick = function() {
+    document.getElementById('fun-fact-popup').style.display = 'none';
+};
+
+
+// Modify setSeasonTheme to show fun fact
+function setSeasonTheme(season) {
+    const body = document.body;
+    body.classList.remove('summer', 'winter', 'spring', 'fall');
+    if (autoTheme && ['summer', 'winter', 'spring', 'fall'].includes(season.toLowerCase())) {
+        body.classList.add(season.toLowerCase());
+        showFunFact(season); // Show fun fact pop-up
+    }
+}
+
+</script>
 </body>
+
 </html>
